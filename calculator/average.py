@@ -5,5 +5,5 @@ def mean(numbers):
     for number in numbers:
         number_sum += number
 
-    mean = (float)number_sum / len(numbers)
+    mean = float(number_sum) / len(numbers)
     return mean
