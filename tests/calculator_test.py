@@ -3,7 +3,7 @@ import pytest
 from calculator import calculator
 
 
-def test_add_three_to_two_pi_is_five():
+def test_add_three_to_two_is_five():
     # Arrange
     a = 2
     b = 3
