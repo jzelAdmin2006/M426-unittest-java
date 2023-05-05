@@ -2,6 +2,7 @@ package tech.bison.trainee.calculator;
 
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
+import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
 
 public class Average {
@@ -33,6 +34,14 @@ public class Average {
 			return StatUtils.mode(numbers);
 		} else {
 			throw new IllegalStateException("mode of no numbers is undefined.");
+		}
+	}
+
+	public double standardDevitation() {
+		if (numbersAreDefined()) {
+			return new StandardDeviation(false).evaluate(numbers);
+		} else {
+			throw new IllegalStateException("standard devitation of no numbers is undefined.");
 		}
 	}
 

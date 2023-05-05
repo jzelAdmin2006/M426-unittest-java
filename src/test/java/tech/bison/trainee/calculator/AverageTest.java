@@ -2,6 +2,7 @@ package tech.bison.trainee.calculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.within;
 
 import java.util.stream.Stream;
 
@@ -54,7 +55,7 @@ public class AverageTest {
 
 	@ParameterizedTest(name = "{2}_mode_is{3}")
 	@MethodSource("provideValuesForMode")
-	void one_mode_isOne(double[] numbers, double[] expected, String inputName, String resultName) {
+	void numbers_mode_isCorrect(double[] numbers, double[] expected, String inputName, String resultName) {
 		double[] actual = new Average(numbers).mode();
 
 		assertThat(actual).containsExactly(expected);
@@ -71,6 +72,30 @@ public class AverageTest {
 				Arguments.of(new double[] { 1, 1, 2, 2, 3, 3, 3 }, new double[] { 3 }, "threeIsMostCommon", "Three"));
 	}
 
+	@ParameterizedTest(name = "{2}_standardDevitation_is{1}")
+	@MethodSource("provideValuesForStandardDevitation")
+	void numbers_standardDevitation_isCorrect(double[] numbers, double expected, String inputName) {
+		double actual = new Average(numbers).standardDevitation();
+
+		assertThat(actual).isEqualTo(expected);
+	}
+
+	private static Stream<Arguments> provideValuesForStandardDevitation() {
+		return Stream.of(Arguments.of(new double[] { 1 }, 0, "oneValue"),
+				Arguments.of(new double[] { 1, 3 }, 1, "oneThree"), Arguments.of(new double[] { 1, 5 }, 2, "oneFive"));
+	}
+
+	@Test
+	void oneToFive_standardDevitation_isAboutSquareRoot2() {
+		double[] oneToFive = new double[] { 1, 2, 3, 4, 5 };
+		double expected = 1.414;
+		double tolerance = 0.001;
+
+		double actual = new Average(oneToFive).standardDevitation();
+
+		assertThat(actual).isCloseTo(expected, within(tolerance));
+	}
+
 	@ParameterizedTest(name = "noNumbers_{1}_isNotSupported")
 	@MethodSource("provideThrowingCallables")
 	void noNumbers_operations_areNotSupported(ThrowingCallable operation, String operationName) {
@@ -83,6 +108,7 @@ public class AverageTest {
 
 		return Stream.of(Arguments.of((ThrowingCallable) average::mean, "mean"),
 				Arguments.of((ThrowingCallable) average::median, "median"),
-				Arguments.of((ThrowingCallable) average::mode, "mode"));
+				Arguments.of((ThrowingCallable) average::mode, "mode"),
+				Arguments.of((ThrowingCallable) average::standardDevitation, "standardDevitation"));
 	}
 }
