@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.within;
 
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -45,7 +46,9 @@ public class CalculatorTest {
   void negativeNumber_factorial_isNotSupported() {
     int x = -1;
 
-    assertThatThrownBy(() -> new Calculator().factorial(x)).isInstanceOf(UnsupportedOperationException.class)
+    ThrowingCallable shouldRaiseThrowable = () -> new Calculator().factorial(x);
+
+    assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(UnsupportedOperationException.class)
         .hasMessageContaining("undefined");
   }
 
