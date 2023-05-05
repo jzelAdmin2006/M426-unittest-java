@@ -24,6 +24,10 @@ public class Calculator {
   }
 
   public double divide(double a, double b) {
-    return a / b;
+    if (b > 0) {
+      return a / b;
+    } else {
+      throw new UnsupportedOperationException("division undefined for divisor zero.");
+    }
   }
 }

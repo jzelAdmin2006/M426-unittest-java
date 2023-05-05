@@ -85,4 +85,16 @@ public class CalculatorTest {
 
     assertThat(actual).isCloseTo(expected, within(tolerance));
   }
+
+  @Test
+  void oneAndZero_divide_isNotSupported() {
+    int a = 1;
+    int b = 0;
+
+    ThrowingCallable shouldRaiseThrowable = () -> new Calculator().divide(a, b);
+
+    assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(UnsupportedOperationException.class)
+        .hasMessageContaining("zero")
+        .hasMessageContaining("undefined");
+  }
 }
