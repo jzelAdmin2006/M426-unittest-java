@@ -39,8 +39,8 @@ public class AverageTest {
 
 	@Test
 	void oddNumberOfElements_median_isMiddleElement() {
-		double[] numbers = new double[] { 2, 4, 5, 6, 7 };
-		double expected = 5;
+		double[] numbers = new double[] { 2, 4, 5, 6, 7, 10, 12 };
+		double expected = 6;
 
 		double actual = new Average(numbers).median();
 
@@ -49,8 +49,8 @@ public class AverageTest {
 
 	@Test
 	void evenNumberOfElements_median_isMeanOfMiddleElements() {
-		double[] numbers = new double[] { 2, 4, 5, 6, 7, 20 };
-		double expected = 5.5;
+		double[] numbers = new double[] { 2, 4, 5, 6, 7, 20, 63, 100 };
+		double expected = 6.5;
 
 		double actual = new Average(numbers).median();
 
