@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import tech.bison.trainee.calculator.Calculator;
-
 public class CalculatorTest {
   @Test
   void threeAndTwo_add_isFive() {
