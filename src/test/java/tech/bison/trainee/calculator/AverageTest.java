@@ -14,4 +14,14 @@ public class AverageTest {
 
     assertThat(actual).isEqualTo(expected);
   }
+
+  @Test
+  void fiveNumbers_mean_isCorrect() {
+    double[] numbers = new double[] { 1, 2, 3, 4, 5 };
+    double expected = 3;
+
+    double actual = new Average(numbers).mean();
+
+    assertThat(actual).isEqualTo(expected);
+  }
 }
