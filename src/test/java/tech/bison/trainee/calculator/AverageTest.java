@@ -57,7 +57,7 @@ public class AverageTest {
 	void one_mode_isOne(double[] numbers, double[] expected, String inputName, String resultName) {
 		double[] actual = new Average(numbers).mode();
 
-		assertThat(actual).isEqualTo(expected);
+		assertThat(actual).containsExactly(expected);
 	}
 
 	private static Stream<Arguments> provideValuesForMode() {
