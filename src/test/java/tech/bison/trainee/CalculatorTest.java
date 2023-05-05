@@ -2,6 +2,7 @@ package tech.bison.trainee;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.within;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -57,5 +58,28 @@ public class CalculatorTest {
     int actual = new Calculator().multiply(a, b);
 
     assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void twentyOneandThree_divide_isSeven() {
+    int a = 21;
+    int b = 3;
+    double expected = 7;
+
+    double actual = new Calculator().divide(a, b);
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void twoAndSeven_divide_isAboutTwoSeventh() {
+    int a = 2;
+    int b = 7;
+    double expected = 0.2857142857;
+    double tolerance = 0.000000001;
+
+    double actual = new Calculator().divide(a, b);
+
+    assertThat(actual).isCloseTo(expected, within(tolerance));
   }
 }
