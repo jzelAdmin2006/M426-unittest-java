@@ -48,7 +48,7 @@ public class CalculatorTest {
 
     ThrowingCallable shouldRaiseThrowable = () -> new Calculator().factorial(x);
 
-    assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(UnsupportedOperationException.class)
+    assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("undefined");
   }
 
@@ -93,7 +93,7 @@ public class CalculatorTest {
 
     ThrowingCallable shouldRaiseThrowable = () -> new Calculator().divide(a, b);
 
-    assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(UnsupportedOperationException.class)
+    assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("zero")
         .hasMessageContaining("undefined");
   }

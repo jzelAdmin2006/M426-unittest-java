@@ -13,7 +13,7 @@ public class Calculator {
 
   public int factorial(int x) {
     if (x < 0) {
-      throw new UnsupportedOperationException("factorial undefined for negative values.");
+      throw new IllegalArgumentException("factorial undefined for negative values.");
     } else {
       return rangeClosed(1, x).reduce(1, (a, b) -> a * b);
     }
@@ -27,7 +27,7 @@ public class Calculator {
     if (b > 0) {
       return a / b;
     } else {
-      throw new UnsupportedOperationException("division undefined for divisor zero.");
+      throw new IllegalArgumentException("division undefined for divisor zero.");
     }
   }
 }
