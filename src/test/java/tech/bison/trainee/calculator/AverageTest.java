@@ -36,4 +36,34 @@ public class AverageTest {
 		assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(IllegalStateException.class)
 				.hasMessageContaining("undefined");
 	}
+
+	@Test
+	void oddNumberOfElements_median_isMiddleElement() {
+		double[] numbers = new double[] { 2, 4, 5, 6, 7 };
+		double expected = 5;
+
+		double actual = new Average(numbers).median();
+
+		assertThat(actual).isEqualTo(expected);
+	}
+
+	@Test
+	void evenNumberOfElements_median_isMeanOfMiddleElements() {
+		double[] numbers = new double[] { 2, 4, 5, 6, 7, 20 };
+		double expected = 5.5;
+
+		double actual = new Average(numbers).median();
+
+		assertThat(actual).isEqualTo(expected);
+	}
+
+	@Test
+	void noNumbers_median_isNotSupported() {
+		double[] numbers = new double[] {};
+
+		ThrowingCallable shouldRaiseThrowable = () -> new Average(numbers).median();
+
+		assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(IllegalStateException.class)
+				.hasMessageContaining("undefined");
+	}
 }
