@@ -1,4 +1,4 @@
-package tech.bison.trainee;
+package tech.bison.trainee.calculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -8,6 +8,8 @@ import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import tech.bison.trainee.calculator.Calculator;
 
 public class CalculatorTest {
   @Test

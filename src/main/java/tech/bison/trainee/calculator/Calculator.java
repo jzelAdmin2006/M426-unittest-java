@@ -1,4 +1,4 @@
-package tech.bison.trainee;
+package tech.bison.trainee.calculator;
 
 import static java.util.stream.IntStream.rangeClosed;
 
