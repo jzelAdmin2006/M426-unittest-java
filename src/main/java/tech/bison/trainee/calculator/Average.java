@@ -11,6 +11,10 @@ public class Average {
   }
 
   public double mean() {
-    return new Mean().evaluate(numbers);
+    if (numbers.length >= 1) {
+      return new Mean().evaluate(numbers);
+    } else {
+      throw new IllegalStateException("mean of no numbers is undefined.");
+    }
   }
 }

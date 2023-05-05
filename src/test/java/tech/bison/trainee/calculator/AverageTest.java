@@ -1,6 +1,7 @@
 package tech.bison.trainee.calculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,5 +24,13 @@ public class AverageTest {
     double actual = new Average(numbers).mean();
 
     assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void noNumbers_mean_isNotSupported() {
+    double[] numbers = new double[] {};
+
+    assertThatThrownBy(() -> new Average(numbers).mean()).isInstanceOf(IllegalStateException.class)
+        .hasMessageContaining("undefined");
   }
 }
