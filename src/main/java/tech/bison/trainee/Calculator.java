@@ -18,4 +18,8 @@ public class Calculator {
       return rangeClosed(1, x).reduce(1, (a, b) -> a * b);
     }
   }
+
+  public int multiply(int a, int b) {
+    return a * b;
+  }
 }

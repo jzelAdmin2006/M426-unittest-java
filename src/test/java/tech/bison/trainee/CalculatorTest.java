@@ -47,4 +47,15 @@ public class CalculatorTest {
     assertThatThrownBy(() -> new Calculator().factorial(x)).isInstanceOf(UnsupportedOperationException.class)
         .hasMessageContaining("undefined");
   }
+
+  @Test
+  void threeAndFour_multiply_isTwelve() {
+    int a = 3;
+    int b = 4;
+    int expected = 12;
+
+    int actual = new Calculator().multiply(a, b);
+
+    assertThat(actual).isEqualTo(expected);
+  }
 }
