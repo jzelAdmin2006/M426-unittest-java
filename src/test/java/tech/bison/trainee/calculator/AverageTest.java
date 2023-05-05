@@ -3,8 +3,13 @@ package tech.bison.trainee.calculator;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.stream.Stream;
+
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class AverageTest {
 	@Test
@@ -28,16 +33,6 @@ public class AverageTest {
 	}
 
 	@Test
-	void noNumbers_mean_isNotSupported() {
-		double[] numbers = new double[] {};
-
-		ThrowingCallable shouldRaiseThrowable = () -> new Average(numbers).mean();
-
-		assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(IllegalStateException.class)
-				.hasMessageContaining("undefined");
-	}
-
-	@Test
 	void oddNumberOfElements_median_isMiddleElement() {
 		double[] numbers = new double[] { 2, 4, 5, 6, 7, 10, 12 };
 		double expected = 6;
@@ -57,13 +52,37 @@ public class AverageTest {
 		assertThat(actual).isEqualTo(expected);
 	}
 
-	@Test
-	void noNumbers_median_isNotSupported() {
+	@ParameterizedTest(name = "{2}_mode_is{3}")
+	@MethodSource("provideValuesForMode")
+	void one_mode_isOne(double[] numbers, double[] expected, String inputName, String resultName) {
+		double[] actual = new Average(numbers).mode();
+
+		assertThat(actual).isEqualTo(expected);
+	}
+
+	private static Stream<Arguments> provideValuesForMode() {
+		return Stream.of(Arguments.of(new double[] { 1 }, new double[] { 1 }, "one", "One"),
+				Arguments.of(new double[] { 1, 1 }, new double[] { 1 }, "oneOne", "OneOne"),
+				Arguments.of(new double[] { 1, 1, 2 }, new double[] { 1 }, "oneOneTwo", "OneOne"),
+				Arguments.of(new double[] { 1, 1, 2, 2 }, new double[] { 1, 2 }, "oneOneTwoTwo", "OneTwo"),
+				Arguments.of(new double[] { 1, 1, 2, 2, 3 }, new double[] { 1, 2 }, "oneOneTwoTwoThree", "OneTwo"),
+				Arguments.of(new double[] { 1, 1, 2, 2, 3, 3 }, new double[] { 1, 2, 3 }, "oneToThreeEachTwice",
+						"OneTwoThree"),
+				Arguments.of(new double[] { 1, 1, 2, 2, 3, 3, 3 }, new double[] { 3 }, "threeIsMostCommon", "Three"));
+	}
+
+	@ParameterizedTest(name = "noNumbers_{1}_isNotSupported")
+	@MethodSource("provideThrowingCallables")
+	void noNumbers_operations_areNotSupported(ThrowingCallable operation, String operationName) {
+		assertThatThrownBy(operation).isInstanceOf(IllegalStateException.class).hasMessageContaining("undefined");
+	}
+
+	private static Stream<Arguments> provideThrowingCallables() {
 		double[] numbers = new double[] {};
+		Average average = new Average(numbers);
 
-		ThrowingCallable shouldRaiseThrowable = () -> new Average(numbers).median();
-
-		assertThatThrownBy(shouldRaiseThrowable).isInstanceOf(IllegalStateException.class)
-				.hasMessageContaining("undefined");
+		return Stream.of(Arguments.of((ThrowingCallable) average::mean, "mean"),
+				Arguments.of((ThrowingCallable) average::median, "median"),
+				Arguments.of((ThrowingCallable) average::mode, "mode"));
 	}
 }

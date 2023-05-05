@@ -1,5 +1,6 @@
 package tech.bison.trainee.calculator;
 
+import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
 
@@ -24,6 +25,14 @@ public class Average {
 			return new Median().evaluate(numbers);
 		} else {
 			throw new IllegalStateException("median of no numbers is undefined.");
+		}
+	}
+
+	public double[] mode() {
+		if (numbersAreDefined()) {
+			return StatUtils.mode(numbers);
+		} else {
+			throw new IllegalStateException("mode of no numbers is undefined.");
 		}
 	}
 
